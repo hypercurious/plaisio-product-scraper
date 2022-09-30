@@ -4,9 +4,9 @@ import pandas
 import requests
 from bs4 import BeautifulSoup
 
-def main(link, filename):
+def main(url, filename):
 
-    get_request = requests.get(link)
+    get_request = requests.get(url)
     
     scraping = BeautifulSoup(get_request.text, 'html.parser')
     products = [product for product in scraping.find(class_='product-list product-list product-list--default')]
@@ -56,7 +56,7 @@ def main(link, filename):
     df.to_csv(filename)
 
 if __name__=='__main__':
-    links = [
+    urls = [
         'https://www.plaisio.gr/pc-perifereiaka/laptops/windows-laptops',
         'https://www.plaisio.gr/anavathmisi-diktia/anavathmisi-pc/koutia-desktop/',
         'https://www.plaisio.gr/smart-tech-gadgets/wearables/smartwatch',
@@ -66,6 +66,6 @@ if __name__=='__main__':
         'desktop_cases.csv',
         'smartwatches.csv',
     ]
-    for link, filename in zip(links, filenames):
-        main(link, filename)
+    for url, filename in zip(urls, filenames):
+        main(url, filename)
         print(f'{filename} is ready')
